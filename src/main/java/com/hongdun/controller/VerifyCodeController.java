@@ -67,8 +67,8 @@ public class VerifyCodeController {
     /**
      * 生成验证码
      */
-    @RequestMapping(value = "/generateCode")
-    public void generateCode(HttpServletRequest req, HttpServletResponse resp)
+    @RequestMapping(value = "/getPicCode")
+    public void getPicCode(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         HttpSession session = req.getSession();
         generateToken(session);
@@ -81,6 +81,16 @@ public class VerifyCodeController {
         setResponseHeaders(resp);
         markTokenUsed(session, true);
         cage.draw(token, resp.getOutputStream());
+    }
+
+    /**
+     * 生成验证码
+     */
+    @RequestMapping(value = "/getTelCode")
+    public void getTelCode(HttpServletRequest req,String phone)
+            throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        // TODO 这里发送短信给用户
     }
 
     /**
