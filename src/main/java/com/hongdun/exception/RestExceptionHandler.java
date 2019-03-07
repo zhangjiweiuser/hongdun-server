@@ -21,6 +21,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 
 /**
@@ -153,6 +154,17 @@ public class RestExceptionHandler {
         logger.error("500异常:", ex);
         logger.error(getErrorDetail(ex));
         return Response.retParam(406, null);
+    }
+
+    /**
+     * 500错误
+     */
+    @ExceptionHandler({MaxUploadSizeExceededException.class})
+    @ResponseBody
+    public Response maxUploadSizeExceeded(RuntimeException ex) {
+        logger.error("超出文件最大尺寸:", ex);
+        logger.error(getErrorDetail(ex));
+        return Response.retParam(2001, null);
     }
 
     /**

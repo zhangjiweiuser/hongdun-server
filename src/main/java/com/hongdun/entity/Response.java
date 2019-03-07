@@ -18,6 +18,7 @@ public class Response<T> {
      * 失败
      */
     private static final int CODE_ERROR = -1;
+
     private static Map<String, String> messageMap = new ConcurrentHashMap<>();
 
     static {
@@ -37,6 +38,8 @@ public class Response<T> {
         messageMap.put("1004", "[服务器]未知方法异常");
         messageMap.put("1005", "[服务器]数组越界异常");
         messageMap.put("1006", "[服务器]网络异常");
+
+        messageMap.put("2001", "文件大小超限");
     }
 
     /**
@@ -46,7 +49,7 @@ public class Response<T> {
     /**
      * 返回信息
      */
-    private String msg;
+    private T msg;
     /**
      * code码
      */
@@ -55,13 +58,13 @@ public class Response<T> {
     public Response() {
     }
 
-    public Response(boolean success, String msg, int code) {
+    public Response(boolean success, T msg, int code) {
         this.success = success;
         this.msg = msg;
         this.code = code;
     }
 
-    public Response(boolean success, String msg) {
+    public Response(boolean success, T msg) {
         this.success = success;
         this.msg = msg;
     }
@@ -72,7 +75,8 @@ public class Response<T> {
             return new Response(0 == code, messageMap.get("" + code) == null ? JSON.toJSONString(data) : messageMap.get("" + code), code);
         }
     }
-    public static <T> Response<T> error(int code, String message) {
+
+    public static <T> Response<T> error(int code, T message) {
         Response<T> response = new Response<>();
         response.setCode(code);
         response.setSuccess(false);
@@ -80,7 +84,7 @@ public class Response<T> {
         return response;
     }
 
-    public static <T> Response<T> success(int code, String message) {
+    public static <T> Response<T> success(int code, T message) {
         Response<T> response = new Response<>();
         response.setCode(code);
         response.setSuccess(true);
@@ -88,11 +92,11 @@ public class Response<T> {
         return response;
     }
 
-    public static <T> Response<T> success(String message) {
+    public static <T> Response<T> success(T message) {
         return success(0, message);
     }
 
-    public Response Response(boolean success, String msg) {
+    public Response Response(boolean success, T msg) {
         this.success = success;
         this.msg = msg;
         return this;
@@ -106,11 +110,11 @@ public class Response<T> {
         this.success = success;
     }
 
-    public String getMsg() {
+    public T getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public void setMsg(T msg) {
         this.msg = msg;
     }
 

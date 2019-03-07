@@ -1,5 +1,5 @@
 <assembly>
-    <id>1.0</id>
+    <id>${build.profile}</id>
     <formats>
         <format>tar.gz</format>
     </formats>
@@ -17,7 +17,8 @@
             <fileMode>0644</fileMode>
             <includes>
                 <include>*.properties</include>
-                <include>*.yml</include>
+                <include>application.yml</include>
+                <include>application-${build.profile}.yml</include>
                 <include>*.xml</include>
             </includes>
         </fileSet>
