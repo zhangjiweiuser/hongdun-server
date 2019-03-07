@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hongdun.dao.ResourcesDao">
+
+
+    <insert id="insertResource" parameterType="com.hongdun.entity.Resources"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into resources(url,created_at) values (#{url,jdbcType=VARCHAR},now())
+    </insert>
+</mapper>

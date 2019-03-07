@@ -9,7 +9,8 @@ create table feed_origin
    code                 varchar(32) comment '序列号',
    title                varchar(50) comment '主题',
    description          text comment '描述',
-   back_resource        varchar(150) comment '背景图',
+   back_resource        int(11) comment '背景图',
+   source_pub_time      datetime DEFAULT NULL comment '来源网站发布的时间',
    source               varchar(150) comment '流来源',
    source_url           varchar(150) comment '流来源网址',
    content              text comment '流内容',
@@ -18,6 +19,7 @@ create table feed_origin
    editor               int comment '采集人员id',
    level                int comment '重要程度',
    status               int comment '状态(0:待提交,1:待审核,2:审核通过,3:审核不通过)',
+   note               text,
    primary key (id)
 );
 

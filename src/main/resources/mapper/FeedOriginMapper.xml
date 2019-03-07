@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hongdun.dao.FeedOriginDao">
+
+    <!-- 获取最后一次插入的code -->
+    <select id="getCode" resultType="String">
+        select code from feed_origin order by id desc limit 1
+    </select>
+
+    <sql id="column_ref">
+        code,title,description,back_resource,source_pub_time,source,source_url,content,editor,level,status,created_at,updated_at
+    </sql>
+
+    <!-- 插入一条feed信息 -->
+    <insert id="addFeedOrigin" parameterType="com.hongdun.entity.FeedOrigin">
+        insert into feed_origin (
+        <include refid="column_ref"/>
+        ) values
+        (#{code},#{title},#{description},#{burl},#{publishTime},#{source},#{sourceUrl},#{content},#{editor},#{level},0,now(),now())
+    </insert>
+
+    <!-- 更新一条feed信息 -->
+    <update id="updateFeedOrigin" parameterType="com.hongdun.entity.FeedOrigin">
+        update feed_origin set title=#{title},description=#{description},back_resource=#{burl},
+        source_pub_time=#{publishTime},source=#{source},source_url=#{sourceUrl},
+        content=#{content},editor=#{editor},level=#{level},updated_at=now() where id=#{id}
+    </update>
+</mapper>

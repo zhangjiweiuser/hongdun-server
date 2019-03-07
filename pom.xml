@@ -26,14 +26,17 @@
             <properties>
                 <build.profile>dev</build.profile>
             </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <build.profile>prod</build.profile>
             </properties>
-
         </profile>
+
     </profiles>
     <dependencies>
         <dependency>

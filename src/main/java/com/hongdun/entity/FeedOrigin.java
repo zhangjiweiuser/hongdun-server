@@ -12,8 +12,19 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Getter
 @Setter
-public class FeedOrigin implements Serializable{
-
-    private String name;
-    private MultipartFile file;
+public class FeedOrigin implements Serializable {
+    private Integer id;
+    private String code;
+    private String title;
+    private String description;
+    private Integer bid;
+    private String burl;
+    private String publishTime;
+    private String source;
+    private String sourceUrl;
+    private String keys;
+    private int level;
+    private String content;
+    private String editor;
+    private String note;
 }
