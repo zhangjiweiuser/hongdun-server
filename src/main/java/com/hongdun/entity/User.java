@@ -14,9 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User {
 
+    private Integer id;
+
     private String username;
 
     private String password;
+
+    private String phone;
 
     private String type;
 

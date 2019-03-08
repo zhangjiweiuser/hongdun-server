@@ -8,14 +8,14 @@
         select code from feed_origin order by id desc limit 1
     </select>
 
-    <sql id="column_ref">
+    <sql id="columnRef">
         code,title,description,back_resource,source_pub_time,source,source_url,content,editor,level,status,created_at,updated_at
     </sql>
 
     <!-- 插入一条feed信息 -->
     <insert id="addFeedOrigin" parameterType="com.hongdun.entity.FeedOrigin">
         insert into feed_origin (
-        <include refid="column_ref"/>
+        <include refid="columnRef"/>
         ) values
         (#{code},#{title},#{description},#{burl},#{publishTime},#{source},#{sourceUrl},#{content},#{editor},#{level},0,now(),now())
     </insert>
@@ -25,5 +25,42 @@
         update feed_origin set title=#{title},description=#{description},back_resource=#{burl},
         source_pub_time=#{publishTime},source=#{source},source_url=#{sourceUrl},
         content=#{content},editor=#{editor},level=#{level},updated_at=now() where id=#{id}
+    </update>
+
+    <select id="getFeeds" parameterType="map" resultType="com.hongdun.entity.FeedOrigin">
+        select
+        <include refid="columnRef"/>
+        from feed_origin
+        <where>
+            <if test="startDate != null and endDate != null">
+                source_pub_time &gt;= #{startDate} and source_pub_time &lt;= #{endDate}
+            </if>
+            <if test="startDate != null and (endDate == null or endDate == '')">
+                source_pub_time &gt;= #{startDate}
+            </if>
+            <if test="(startDate == null or startDate == '') and endDate != null">
+                source_pub_time &lt;= #{endDate}
+            </if>
+            <if test="status != null">
+                and status=#{status}
+            </if>
+            <if test="keyList != null">
+                and (
+                <foreach collection="keyList" index="index" item="item" open="" separator="or"
+                         close="">
+                    keys like CONCAT(CONCAT('%', #{item}) ,'%')
+                </foreach>
+                )
+            </if>
+        </where>
+    </select>
+    <!-- 审批feed流 -->
+    <update id="reviewFeedOrigin" parameterType="map">
+        update feed_origin set status=#{status},note=#{note},updated_at=now()
+        where id in (
+        <foreach collection="idList" item="item" index="index" open="" separator="," close="">
+            #{item}
+        </foreach>
+        )
     </update>
 </mapper>

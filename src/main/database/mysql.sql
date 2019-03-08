@@ -1,9 +1,9 @@
-drop table if exists feed_origin;
+drop table if exists backend_feed_origin;
 
 /*==============================================================*/
 /* Table: feed_origin                                           */
 /*==============================================================*/
-create table feed_origin
+create table backend_feed_origin
 (
    id                   int not null comment '主键',
    code                 varchar(32) comment '序列号',
@@ -16,36 +16,26 @@ create table feed_origin
    content              text comment '流内容',
    created_at           datetime comment '创建时间',
    updated_at           datetime comment '更新时间',
-   editor               int comment '采集人员id',
-   level                int comment '重要程度',
-   status               int comment '状态(0:待提交,1:待审核,2:审核通过,3:审核不通过)',
+   editor               varchar(50) comment '采集人员',
+   level                int(11) comment '重要程度',
+   status               int(11) comment '状态(1:待审核,2:审核通过,3:审核不通过)' DEFAULT 1,
    note               text,
    primary key (id)
-);
-
-alter table feed_origin comment 'feed流原始采集信息';
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 comment 'feed流原始采集信息';
 
 
-
-drop table if exists user;
+drop table if exists backend_user;
 
 /*==============================================================*/
 /* Table: user                                                  */
 /*==============================================================*/
-create table user
-(
-   id                   int not null comment '主键',
-   username             varchar(25) not null comment '姓名',
-   password             varchar(32) not null comment '密码',
-   real_name            varchar(30) comment '真实姓名',
-   type                 int not null default 0 comment '类型，0：普通用户，1：审核人员，2：管理人员',
-   status               int not null default 0 comment '状态，0：正常，1：暂停，2：删除',
-   created_at           datetime comment '创建时间',
-   updated_at           datetime comment '更新时间',
-   primary key (id)
-)
-type = InnoDB
-auto_increment = 1
-charset = UTF8;
+CREATE TABLE `backend_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(50) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `note` varchar(50) DEFAULT NULL,
+  `type` int(11) NOT NULL DEFAULT '2' COMMENT '1超级管理员 2:普通人员，3:运营人员',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='后台用户表';
 
-alter table user comment '用户表';

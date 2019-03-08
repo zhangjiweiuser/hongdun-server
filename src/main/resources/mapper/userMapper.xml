@@ -3,10 +3,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hongdun.dao.UserDao">
 
+    <sql id="columnRef">
+        id,user_name,user_pwd,phone,type
+    </sql>
 
-    <select id="queryUserById" parameterType="int" resultType="com.hongdun.entity.User">
+    <resultMap id="resultRef" type="com.hongdun.entity.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username" jdbcType="varchar" javaType="string"/>
+        <result column="password" property="password" jdbcType="varchar" javaType="string"/>
+        <result column="phone" property="phone" jdbcType="varchar" javaType="string"/>
+        <result column="type" property="type" jdbcType="varchar" javaType="int"/>
+
+    </resultMap>
+
+    <!-- 根据id查询用户信息 -->
+    <select id="queryUserById" parameterType="int" resultMap="resultRef">
         SELECT
-        username,password,type from user2 where id=#{id}
+        <include refid="columnRef"/>
+        FROM backend_user WHERE id=#{id,jdbcType=INTEGER}
 
     </select>
+
+
 </mapper>

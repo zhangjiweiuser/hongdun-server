@@ -13,6 +13,9 @@ logging:
   file: logs/hongdun.log
   pattern:
     console: "%d{yyyy-MM-dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n"
+  level:
+    com.hongdun.dao: debug
+
 file:
   upload:
     path: E:/2019/

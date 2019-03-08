@@ -1,6 +1,8 @@
 package com.hongdun.dao;
 
 
+import java.util.List;
+
 import com.hongdun.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -20,4 +22,5 @@ public interface UserDao {
      */
     User queryUserById(@Param("id") int id);
 
+    List<User> getUser();
 }

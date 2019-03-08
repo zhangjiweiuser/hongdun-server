@@ -1,17 +1,13 @@
 package com.hongdun.entity;
 
-import java.io.Serializable;
-
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
- * @author jiwei.zhang
- * @date 2019-03-01 下午 17:58
+ * @author zhang
+ * @date 2019-03-08 下午 18:02
  */
-@Getter
-@Setter
-public class FeedOrigin implements Serializable {
+@Data
+public class Subject {
 
     private Integer id;
 
@@ -55,10 +51,6 @@ public class FeedOrigin implements Serializable {
      */
     private String sourceUrl;
 
-    /**
-     * 关键字
-     */
-    private String keys;
 
     /**
      * 信息重要级别
@@ -70,10 +62,6 @@ public class FeedOrigin implements Serializable {
      */
     private String content;
 
-    /**
-     * 采编人
-     */
-    private String editor;
 
     /**
      * 审批状态
@@ -84,4 +72,9 @@ public class FeedOrigin implements Serializable {
      * 审批意见
      */
     private String note;
+
+    /**
+     * 专题类型 1 要闻  2 普通',
+     */
+    private int tag = 2;
 }
